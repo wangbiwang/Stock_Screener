@@ -34,7 +34,7 @@ jobs:
           git config --global user.email wang1144301122@gmail.com
           git config --global user.name wangbiwang
           git add .
-          git commit -m"action:`date`"
+          git commit -m "action:`date`"
           git pull --rebase
       - name: Push changes
         uses: ad-m/github-push-action@master
