@@ -6,8 +6,7 @@
         let array = JSON.parse(fs.readFileSync(file + '/data.json', 'utf8'))
         return handleCode(array)
     }
-    let m = new Map(),
-        ans = []
+    let m = new Map()
     function map_storage(...arr) {
         arr.forEach((e, i) => {
             e.forEach((el) => {
@@ -29,51 +28,24 @@
                 )
             })
         })
-        m.forEach((value, key) => (value[0] >= arr.length ? ans.push([key, value[1]]) : null))
     }
-    map_storage(readData(20230210),readData(20230209),readData(20230208),readData(20230207))
+    map_storage(readData(20230207), readData(20230206), readData(20230203), readData(20230202))
+    let ans = []
+    m.forEach((value, key) => (value[0] >= 4 ? ans.push([key, value[1]]) : null))
 
     /**
      * 额外条件1：振幅是递增趋势
      */
-    // ans = ans.filter((el) => isContinuityArray(el[1].rate))
+    ans = ans.filter((el) => isContinuityArray(el[1].rate))
 
     /**
-     * 额外条件2：换手率是递增趋势
+     * 额外条件2：换手是递增趋势
      */
     // ans = ans.filter((el) => isContinuityArray(el[1].st))
     /**
      * 额外条件3：成交额是递增趋势
      */
     // ans = ans.filter((el) => isContinuityArray(el[1].vot))
-    /**
-     * 额外条件4：最远一天的数据是负振幅,其他都是正振幅
-     */
-    ans = ans.filter((el) => {
-        let flag = true
-        for (let i = 0; i < el[1].rate.length - 1; i++) {
-            let e = el[1].rate[i]
-            if (e < 0) {
-                flag = false
-                break
-            }
-        }
-        return el[1].rate[el[1].rate.length - 1] < 0 && flag
-    })
-    /**
-     * 额外条件5：放量策略，最远一天换手率低于1，之后的交易日换手率大于1
-     */
-    // ans = ans.filter((el) => {
-    //     let flag = true
-    //     for (let i = 0; i < el[1].st.length - 1; i++) {
-    //         let e = el[1].st[i]
-    //         if (e < 2) {
-    //             flag = false
-    //             break
-    //         }
-    //     }
-    //     return el[1].st[el[1].rate.length - 1] < 1 && flag
-    // })
 
     console.log('最终选出数量：', ans.length, '\n', ans)
     if (ans.length > 0) {
@@ -100,16 +72,16 @@ function handleCode(array) {
             // element.code > 600000 && //
             // element.code < 300000 && //
 
-            element.rate > -1 && // 涨幅大于(%)
-            element.rate < 3 && // 涨幅小于(%)
+            element.rate > -3 && // 涨幅大于(%)
+            element.rate < 5 && // 涨幅小于(%)
             element.st > 1 && //换手大于(%)
             element.st < 10 && //换手小于(%)
             element.vot > 5000 && // 交易金额大于(万)
             // element.vot < 20000 && // 交易金额小于(万)
             element.market_val > 30 && //总市值小于(亿)
-            element.market_val < 700 && //总市值小于(亿)
+            element.market_val < 600 && //总市值小于(亿)
             element.price > 2 && //当前价格
-            element.price < 20 //当前价格
+            element.price < 15 //当前价格
         // ------------------
         // const tactics2 = //策略-2
         //     element.name.indexOf('ST') === -1 && //筛除ST股

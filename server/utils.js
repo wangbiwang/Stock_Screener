@@ -1,33 +1,37 @@
-// module.exports.deleteFolderRecursive = (path) => {
-//     const fs = require('fs')
-//     const Path = require('path')
-//     if (fs.existsSync(path)) {
-//         fs.readdirSync(path).forEach((file, index) => {
-//             const curPath = Path.join(path, file)
-//             if (fs.lstatSync(curPath).isDirectory()) {
-//                 // recurse
-//                 deleteFolderRecursive(curPath)
-//             } else {
-//                 // delete file
-//                 fs.unlinkSync(curPath)
-//             }
-//         })
-//         fs.rmdirSync(path)
-//     }
-// }
-module.exports.getCode = async (a, b, datastr) => {
-    const axios = require('axios')
+import axios from 'axios'
+export const handle_one_StockData = (data) => {
+    for (let i = 0; i < data.length; i++) {
+        let e = data[i].split('=')[1]
+        if (e) {
+            let earr = e.split('~')
+            data[i] = {
+                _code: data[i].split('=')[0].split('_')[1],
+                code: earr[2], //股票代码
+                name: earr[1], //股票名
+                price: earr[3], //当前价格
+                rate: earr[32], //振幅
+                vot: earr[37], //成交额（万）
+                st: earr[38], //换手率
+                market_val: earr[45], //市值(亿)
+            }
+        }
+    }
+    return data
+}
+export const getCode = async (a, b, datastr) => {
+    // const axios = require('axios')
+    let str = datastr.substring(a * 9, b * 9)
     let res = await axios({
         method: 'get',
-        url: 'https://qt.gtimg.cn/q=' + datastr.substring(a * 9, b * 9),
+        url: 'https://qt.gtimg.cn/q=' + str,
         responseType: 'arraybuffer', // 关键步骤
         responseEncoding: 'utf8',
     })
     let utf8decoder = new TextDecoder('GBK') // 关键步骤
     return utf8decoder.decode(res.data)
 }
-module.exports.getDate = async () => {
-    const axios = require('axios')
+export const getDate = async () => {
+    // const axios = require('axios')
     let res = await axios({
         method: 'get',
         url: 'https://qt.gtimg.cn/q=sz000858,sh600519,sh601398',
@@ -49,7 +53,7 @@ module.exports.getDate = async () => {
     return Object.keys(d).sort((a, b) => d[b] - d[a])[0]
 }
 
-// module.exports.getDate = () => {
+// export const getDate = () => {
 //     let nowDate = new Date()
 //     let year = nowDate.getFullYear()
 //     let month = nowDate.getMonth() + 1 < 10 ? '0' + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1
@@ -58,7 +62,7 @@ module.exports.getDate = async () => {
 //     return dateStr
 // }
 // 格式化日对象
-module.exports.getNowDate = () => {
+export const getNowDate = () => {
     var date = new Date()
     var sign2 = '-'
     var year = date.getFullYear() // 年
@@ -87,3 +91,21 @@ module.exports.getNowDate = () => {
     }
     return year + '-' + month + '-' + day + ' ' + hour + sign2 + minutes + sign2 + seconds
 }
+
+// export const deleteFolderRecursive = (path) => {
+//     const fs = require('fs')
+//     const Path = require('path')
+//     if (fs.existsSync(path)) {
+//         fs.readdirSync(path).forEach((file, index) => {
+//             const curPath = Path.join(path, file)
+//             if (fs.lstatSync(curPath).isDirectory()) {
+//                 // recurse
+//                 deleteFolderRecursive(curPath)
+//             } else {
+//                 // delete file
+//                 fs.unlinkSync(curPath)
+//             }
+//         })
+//         fs.rmdirSync(path)
+//     }
+// }
