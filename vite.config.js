@@ -15,7 +15,7 @@ export default defineConfig({
         }),
     ],
     build:{
-        outDir: 'docs/Stock_Screener',
+        outDir: 'docs',
         chunkSizeWarningLimit: 1500,
         rollupOptions: {
             output: {
