@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://wangbiwang.github.io/Stock_Screener/",
   "scripts": {
     "getData": "node ./server/getData.js",
     "handleData": "node handleData.js",
