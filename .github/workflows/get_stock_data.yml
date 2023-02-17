@@ -27,6 +27,8 @@ jobs:
         run: npm install
       - name: Update stock data
         run: npm run getData
+      - name: Update docs data （Update github pages）
+        run: npm run build
       - name: Commit
         run: |
           git config --global user.email wang1144301122@gmail.com
