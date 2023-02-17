@@ -23,6 +23,7 @@ const select_group = reactive({
     e4: false,
     e5: false,
 })
+const updateTime = ref('-')
 const showData = ref([])
 const disabledDate = (time) => {
     return newDate.indexOf(time.getTime()) == -1
@@ -112,6 +113,19 @@ const handleAllCode = async (obj) => {
     for (let i = 0; i < arr.length; i++) {
         let e = arr[i]
         const json = (await import(`../public/Stock_Data/${e}.json`)).default
+        if (e == arr[arr.length - 1]) {
+            let t = json[0].split('=')[1].split('~')[30]
+            updateTime.value =
+                t.substring(0, 4) +
+                '-' +
+                t.substring(4, 6) +
+                '-' +
+                t.substring(6, 8) +
+                ' ' +
+                t.substring(8, 10) +
+                ':' +
+                t.substring(10, 12)
+        }
         const d = handleDateJson(json)
         const emt = handleCode(d, obj)
         ans.push(emt)
@@ -229,6 +243,7 @@ const formatDate = (date) => {
 
 <template>
     <div class="warp">
+        <div style="margin: 0.5rem 1rem; color: red">数据更新时间：{{ updateTime }}</div>
         <el-card class="screening_condition">
             <div class="box">
                 <div class="tit">基础筛选条件：</div>
@@ -245,7 +260,7 @@ const formatDate = (date) => {
                             end-placeholder="End Date"
                             :default-value="[new Date(2023, 2, 2), new Date(2023, 2, 3)]"
                         />
-                        <div>已选 {{ select_group.select_date_day.length }}天数据</div>
+                        <div style="margin-left: 0.5rem">已选{{ select_group.select_date_day.length }}天数据</div>
                     </div>
                     <div class="block">
                         <div class="block_title">筛除ST股:</div>
@@ -258,77 +273,54 @@ const formatDate = (date) => {
                     <div class="block">
                         <div class="block_title">股票现价区间(元):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input
-                                v-model="select_group.price[0]"
-                                class="priceInput"
-                                style="width: 60px; margin-right: 10px"
-                            />-<el-input
+                            <el-input v-model="select_group.price[0]" class="priceInput" />-<el-input
                                 v-model="select_group.price[1]"
                                 class="priceInput"
-                                style="width: 60px; margin-left: 10px"
                             />
                         </div>
                     </div>
                     <div class="block">
                         <div class="block_title">市值区间(亿元):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input
-                                v-model="select_group.market_capitalization[0]"
-                                class="priceInput"
-                                style="width: 60px; margin-right: 10px"
-                            />-<el-input
+                            <el-input v-model="select_group.market_capitalization[0]" class="priceInput" />-<el-input
                                 v-model="select_group.market_capitalization[1]"
                                 class="priceInput"
-                                style="width: 60px; margin-left: 10px"
                             />
                         </div>
                     </div>
                     <div class="block">
                         <div class="block_title">涨跌幅区间(%):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input
-                                v-model="select_group.changepercent[0]"
-                                class="priceInput"
-                                style="width: 60px; margin-right: 10px"
-                            />-<el-input
+                            <el-input v-model="select_group.changepercent[0]" class="priceInput" />-<el-input
                                 v-model="select_group.changepercent[1]"
                                 class="priceInput"
-                                style="width: 60px; margin-left: 10px"
                             />
                         </div>
                     </div>
                     <div class="block">
                         <div class="block_title">换手率区间(%):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input
-                                v-model="select_group.turnover_rate[0]"
-                                class="priceInput"
-                                style="width: 60px; margin-right: 10px"
-                            />-<el-input
+                            <el-input v-model="select_group.turnover_rate[0]" class="priceInput" />-<el-input
                                 v-model="select_group.turnover_rate[1]"
                                 class="priceInput"
-                                style="width: 60px; margin-left: 10px"
                             />
                         </div>
                     </div>
                     <div class="block">
                         <div class="block_title">成交额区间(万):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input
-                                v-model="select_group.turnover[0]"
-                                class="priceInput"
-                                style="width: 60px; margin-right: 10px"
-                            />-<el-input
+                            <el-input v-model="select_group.turnover[0]" class="priceInput" />-<el-input
                                 v-model="select_group.turnover[1]"
                                 class="priceInput"
-                                style="width: 60px; margin-left: 10px"
                             />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="box">
-                <div class="tit">额外筛选条件：<span style="color: red">(调整额外筛选条件前,请先注意基础条件参数!)</span></div>
+                <div class="tit">
+                    额外筛选条件：<span style="color: red">(调整额外筛选条件前,请先注意基础条件参数!)</span>
+                </div>
                 <div class="cont">
                     <div class="block">
                         <el-switch v-model="select_group.e1" />
@@ -367,7 +359,7 @@ const formatDate = (date) => {
                         v-for="item in showData"
                         style="text-align: center; width: 60px"
                         target="_blank"
-                        :href="'http://www.baidu.com/s?tn=68018901_17_oem_dg&ie=utf-8&wd=' + item[0]"
+                        :href="'https://gushitong.baidu.com/stock/ab-' + item[0]"
                         >{{ item[0] }}</a
                     >
 
@@ -391,6 +383,10 @@ const formatDate = (date) => {
         border: 1px solid #333;
         margin: 5px;
         padding: 5px;
+        .priceInput {
+            width: 80px;
+            margin: 5px;
+        }
         .block_title {
             width: 8.5rem;
         }
@@ -399,16 +395,17 @@ const formatDate = (date) => {
         }
     }
     .screening_condition {
-        margin: 20px;
+        margin: 0.7rem;
         .el-card__body {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             width: 100%;
             // width: calc(100% - 40px);
-            padding: 1rem;
+            padding: 1rem 0;
             .box {
                 width: calc(50% - 1rem);
-                min-width: 350px;
+                min-width: 25rem;
                 .tit {
                     padding: 0 5px;
                 }
@@ -416,7 +413,7 @@ const formatDate = (date) => {
         }
     }
     .Results_of_screening {
-        margin: 20px;
+        margin: 0.7rem;
         .cont {
             min-height: 40px;
             display: flex;
