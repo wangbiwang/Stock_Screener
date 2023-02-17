@@ -6,7 +6,7 @@ name: Get Stock Data
 # on:[ workflow_dispatch , push , page_build , schedule: [ cron: '0,5 4,7 * * *' ]]
 on:
   workflow_dispatch:  
-  push: { branches: [ main ] }
+  # push: { branches: [ main ] }
   # page_build:
   schedule: [ cron: '0,5 4,7,9 * * *' ]
 # #     - cron: '00 04 * * *' # once a day at 04:00 UTC / 12:00 BeiJing
