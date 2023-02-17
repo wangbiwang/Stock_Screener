@@ -1,13 +1,13 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: Node.js Package
+name: Get Stock Data
 
 # on:[ workflow_dispatch , push , page_build , schedule: [ cron: '0,5 4,7 * * *' ]]
 on:
   workflow_dispatch:  
   push: { branches: [ main ] }
-  page_build:
+  # page_build:
   schedule: [ cron: '0,5 4,7,9 * * *' ]
 # #     - cron: '00 04 * * *' # once a day at 04:00 UTC / 12:00 BeiJing
 # #     - cron: '05 04 * * *' # once a day at 04:05 UTC / 12:05 BeiJing
