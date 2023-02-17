@@ -357,7 +357,7 @@ const formatDate = (date) => {
                     <!-- <div v-for="item in showData" style="text-align: center; width: 60px">{{ item[0] }}</div> -->
                     <a
                         v-for="item in showData"
-                        style="text-align: center; width: 60px"
+                        style="text-align: center; width: 70px"
                         target="_blank"
                         :href="'https://gushitong.baidu.com/stock/ab-' + item[0]"
                         >{{ item[0] }}</a
