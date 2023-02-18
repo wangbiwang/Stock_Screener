@@ -150,12 +150,13 @@ const handleDate = async (obj) => {
                               st: val[1].st.concat(el.st),
                               vot: val[1].vot.concat(el.vot),
                           },
+                          el._code,
                       ]
-                    : [1, { rate: [el.rate], st: [el.st], vot: [el.vot] }]
+                    : [1, { rate: [el.rate], st: [el.st], vot: [el.vot] }, el._code]
             )
         })
     })
-    m.forEach((value, key) => (value[0] >= arr.length ? ans.push([key, value[1]]) : null))
+    m.forEach((value, key) => (value[0] >= arr.length ? ans.push([key, value[1], value[2]]) : null))
     // 判断数组是从小到大排序
     function isContinuityArray(arr, n = arr.length) {
         if (n == 1) return true
@@ -353,15 +354,22 @@ const formatDate = (date) => {
             <div v-if="showData.length == 0" class="cont">NOT DATA</div>
             <div v-else>
                 <div style="margin: 10px">已筛选{{ showData.length }}只代码，点击下方代码查看详情</div>
-                <div style="display: flex">
-                    <!-- <div v-for="item in showData" style="text-align: center; width: 60px">{{ item[0] }}</div> -->
+                <div style="display: flex; flex-wrap: wrap">
                     <a
+                        v-for="item in showData"
+                        style="text-align: center; width: 70px"
+                        target="_blank"
+                        :href="`http://quote.eastmoney.com/concept/${item[2]}.html?from=classic#fschart-k`"
+                        >{{ item[0] }}</a
+                    >
+                    <!-- <div v-for="item in showData" style="text-align: center; width: 60px">{{ item[0] }}</div> -->
+                    <!-- <a
                         v-for="item in showData"
                         style="text-align: center; width: 70px"
                         target="_blank"
                         :href="'https://gushitong.baidu.com/stock/ab-' + item[0]"
                         >{{ item[0] }}</a
-                    >
+                    > -->
 
                     <!-- https://www.baidu.com/s?tn=68018901_17_oem_dg&ie=utf-8&wd=600617 -->
                 </div>
