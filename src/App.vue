@@ -274,17 +274,23 @@ const formatDate = (date) => {
                     <div class="block">
                         <div class="block_title">股票现价区间(元):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input v-model="select_group.price[0]" class="priceInput" />-<el-input
-                                v-model="select_group.price[1]"
+                            <el-input
+                                type="number"
+                                v-model.number="select_group.price[0]"
                                 class="priceInput"
-                            />
+                            />-<el-input type="number" v-model.number="select_group.price[1]" class="priceInput" />
                         </div>
                     </div>
                     <div class="block">
                         <div class="block_title">市值区间(亿元):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input v-model="select_group.market_capitalization[0]" class="priceInput" />-<el-input
-                                v-model="select_group.market_capitalization[1]"
+                            <el-input
+                                type="number"
+                                v-model.number="select_group.market_capitalization[0]"
+                                class="priceInput"
+                            />-<el-input
+                                type="number"
+                                v-model.number="select_group.market_capitalization[1]"
                                 class="priceInput"
                             />
                         </div>
@@ -292,8 +298,13 @@ const formatDate = (date) => {
                     <div class="block">
                         <div class="block_title">涨跌幅区间(%):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input v-model="select_group.changepercent[0]" class="priceInput" />-<el-input
-                                v-model="select_group.changepercent[1]"
+                            <el-input
+                                type="number"
+                                v-model.number="select_group.changepercent[0]"
+                                class="priceInput"
+                            />-<el-input
+                                type="number"
+                                v-model.number="select_group.changepercent[1]"
                                 class="priceInput"
                             />
                         </div>
@@ -301,8 +312,13 @@ const formatDate = (date) => {
                     <div class="block">
                         <div class="block_title">换手率区间(%):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input v-model="select_group.turnover_rate[0]" class="priceInput" />-<el-input
-                                v-model="select_group.turnover_rate[1]"
+                            <el-input
+                                type="number"
+                                v-model.number="select_group.turnover_rate[0]"
+                                class="priceInput"
+                            />-<el-input
+                                type="number"
+                                v-model.number="select_group.turnover_rate[1]"
                                 class="priceInput"
                             />
                         </div>
@@ -310,10 +326,11 @@ const formatDate = (date) => {
                     <div class="block">
                         <div class="block_title">成交额区间(万):</div>
                         <div style="display: inline-flex; align-items: center">
-                            <el-input v-model="select_group.turnover[0]" class="priceInput" />-<el-input
-                                v-model="select_group.turnover[1]"
+                            <el-input
+                                type="number"
+                                v-model.number="select_group.turnover[0]"
                                 class="priceInput"
-                            />
+                            />-<el-input type="number" v-model.number="select_group.turnover[1]" class="priceInput" />
                         </div>
                     </div>
                 </div>
@@ -392,7 +409,7 @@ const formatDate = (date) => {
         margin: 5px;
         padding: 5px;
         .priceInput {
-            width: 80px;
+            width: 92px;
             margin: 5px;
         }
         .block_title {
