@@ -8,11 +8,17 @@ on:
   workflow_dispatch:  
   # push: { branches: [ main ] }
   # page_build:
-  schedule: [ cron: '0,5 4,7,9 * * *' ]
+#   schedule: [ cron: '0,5 4,7,9 * * *' ]
 # #     - cron: '00 04 * * *' # once a day at 04:00 UTC / 12:00 BeiJing
 # #     - cron: '05 04 * * *' # once a day at 04:05 UTC / 12:05 BeiJing
 # #     - cron: '00 07 * * *' # once a day at 07:00 UTC / 15:00 BeiJing
 # #     - cron: '05 07 * * *' # once a day at 07:05 UTC / 15:05 BeiJing
+  schedule: [ cron: '30 9 * * *' ]
+# #     - cron: '00 04 * * *' # once a day at 04:00 UTC / 12:00 BeiJing
+# #     - cron: '05 04 * * *' # once a day at 04:05 UTC / 12:05 BeiJing
+# #     - cron: '00 07 * * *' # once a day at 07:00 UTC / 15:00 BeiJing
+# #     - cron: '05 07 * * *' # once a day at 07:05 UTC / 15:05 BeiJing
+# #     - cron: '30 09 * * *' # once a day at 07:05 UTC / 17:30 BeiJing
 
 jobs:
   build:
