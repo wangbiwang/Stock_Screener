@@ -3,7 +3,34 @@ import fs from 'fs'
 import axios from 'axios'
 import qs from 'qs'
 ;(async function () {
-    let datasss = []
+    let datasss = [
+        // 20220321,
+        // 20220322, 20220323, 20220324, 20220325, 20220328, 20220329, 20220330, 20220331, 20220401, 20220406, 20220407,
+        // 20220408, 20220411, 20220412, 20220413, 20220414, 20220415, 20220418, 20220419, 20220420, 20220421, 20220422,
+        // 20220425, 20220426, 20220427, 20220428, 20220429, 20220505, 20220506, 20220509, 20220510, 20220511, 20220512,
+        // 20220513, 20220516, 20220517, 20220518, 20220519, 20220520, 20220523, 20220524, 20220525, 20220526, 20220527,
+        // 20220530, 20220531, 20220601, 20220602, 20220606, 20220607, 20220608, 20220609, 20220610, 20220613, 20220614,
+        // 20220615, 20220616, 20220617, 20220620, 20220621, 20220622, 20220623, 20220624, 20220627, 20220628, 20220629,
+        // 20220630, 20220701, 20220704, 20220705, 20220706, 20220707, 20220708, 20220711, 20220712, 20220713, 20220714,
+        // 20220715, 20220718, 20220719, 20220720, 20220721, 20220722, 20220725, 20220726, 20220727, 20220728, 20220729,
+        // 20220801, 20220802, 20220803, 20220804, 20220805, 20220808, 20220809, 20220810, 20220811, 20220812, 20220815,
+        // 20220816, 20220817, 20220818, 20220819, 20220822, 20220823, 20220824, 20220825, 20220826, 20220829, 20220830,
+        // 20220831, 20220901, 20220902, 20220905, 20220906, 20220907, 20220908, 20220909, 20220913, 20220914, 20220915,
+        // 20220916, 20220919, 20220920, 20220921, 20220922, 20220923, 20220926, 20220927, 20220928, 20220929, 20220930,
+        // 20221010, 20221011, 20221012, 20221013, 20221014, 20221017, 20221018, 20221019, 20221020, 20221021, 20221024,
+        // 20221025, 20221026, 20221027, 20221028, 20221031, 20221101, 20221102, 20221103, 20221104, 20221107, 20221108,
+        // 20221109, 20221110, 20221111, 20221114, 20221115, 20221116, 20221117, 20221118, 20221121, 20221122, 20221123,
+        // 20221124, 20221125, 20221128, 20221129, 20221130, 20221201, 20221202, 20221205, 20221206, 20221207, 20221208,
+        // 20221209, 20221212, 20221213, 20221214, 20221215, 20221216, 20221219, 20221220, 20221221, 20221222, 20221223,
+        // 20221226, 20221227, 20221228, 20221229, 20221230, 20230103, 20230104, 20230105, 20230106, 20230109, 20230110,
+        // 20230111, 20230112, 20230113, 20230116, 20230117, 20230118, 20230119, 20230120, 20230130, 20230131, 20230201,
+        // 20230202, 20230203, 20230206, 20230207, 20230208, 20230209, 20230210, 20230213, 20230214, 20230215, 20230216,
+        // 20230217, 20230220, 20230221, 20230222, 20230223, 20230224, 20230227, 20230228, 20230301, 20230302, 20230303,
+        // 20230306, 20230307, 20230308, 20230309, 20230310, 20230313,
+        //  20230314, 20230315, 20230316, 20230317, 20230320,
+        // 20230321,20230322,
+        20230323
+    ]
     for (var i = 0; i < datasss.length; i++) {
         let k = i
         ;(function (time, date) {
@@ -43,44 +70,45 @@ async function getCode(date, page = 1, limit = 100, all = []) {
         },
         url: 'https://www.iwencai.com/gateway/urp/v7/landing/getDataList',
         data: {
-            query: '14点30个股热度排名；换手率%；成交额；资金流向；dde大单净额；涨跌幅:前复权；分时收盘价不复权9点30价格9点40价格9点50价格10点10价格10点30价格14点30价格14点40价格',
+            query: '14点30分个股热度排名；14点30分换手率%；14点30分成交额；14点30分资金流向；14点30分dde大单净额；14点30分涨跌幅:前复权；14点30分收盘价不复权;开盘到14点30分区间最低价不复权;',
             urp_sort_way: 'asc',
             urp_sort_index: `个股热度排名[${date}]`,
             page: page,
             perpage: '100',
-            condition: `[{"chunkedResult":"14点30个股热度排名;_&_换手率%;_&_成交额;_&_资金流向;_&_dde大单净额;_&_涨跌幅:前复权;_&_分时收盘价不复权9点30价格9点40价格9点50价格10点10价格10点30价格14点30价格14点40价格","opName":"and","opProperty":"","sonSize":26,"relatedSize":0},{"dateText":"14点30","indexName":"分时个股热度排名","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"NATURAL_DAILY","dateType":"+区间","valueType":"_整型数值","domain":"abs_股票领域","uiText":"${data_text(
+            condition: `[{"chunkedResult":"14点30分个股热度排名;_&_14点30分换手率%;_&_14点30分成交额;_&_14点30分资金流向;_&_14点30分dde大单净额;_&_14点30分涨跌幅:前复权;_&_14点30分收盘价不复权;_&_开盘到14点30分区间最低价不复权;","opName":"and","opProperty":"","sonSize":14,"relatedSize":0},{"dateText":"14点30分","indexName":"分时个股热度排名","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"NATURAL_DAILY","dateType":"+区间","valueType":"_整型数值","domain":"abs_股票领域","uiText":"${data_text(
                 date
             )}14点30分分时个股热度排名","sonSize":0,"queryText":"${data_text(
                 date
-            )}14点30分分时个股热度排名","relatedSize":0,"tag":"[14点30]个股热度排名"},{"opName":"and","opProperty":"","sonSize":24,"relatedSize":0},{"indexName":"换手率","indexProperties":["nodate 1","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(%)","domain":"abs_股票领域","uiText":"换手率","sonSize":0,"queryText":"换手率","relatedSize":0,"tag":"换手率"},{"opName":"and","opProperty":"","sonSize":22,"relatedSize":0},{"indexName":"成交额","indexProperties":["nodate 1","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"成交额","sonSize":0,"queryText":"成交额","relatedSize":0,"tag":"成交额"},{"opName":"and","opProperty":"","sonSize":20,"relatedSize":0},{"indexName":"资金流向","indexProperties":["nodate 1","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"资金流向","sonSize":0,"queryText":"资金流向","relatedSize":0,"tag":"资金流向"},{"opName":"and","opProperty":"","sonSize":18,"relatedSize":0},{"indexName":"dde大单净额","indexProperties":["nodate 1","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"dde大单净额","sonSize":0,"queryText":"dde大单净额","relatedSize":0,"tag":"dde大单净额"},{"opName":"and","opProperty":"","sonSize":16,"relatedSize":0},{"indexName":"涨跌幅:前复权","indexProperties":["nodate 1","复权方式 前复权","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","复权方式":"前复权","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(%)","domain":"abs_股票领域","uiText":"前复权的涨跌幅","sonSize":0,"queryText":"前复权的涨跌幅","relatedSize":0,"tag":"涨跌幅:前复权"},{"opName":"and","opProperty":"","sonSize":14,"relatedSize":0},{"indexName":"收盘价:不复权","indexProperties":["nodate 1","交易日期 ${date}"],"source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","nodate":"1"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"收盘价:不复权","sonSize":0,"queryText":"收盘价:不复权","relatedSize":0,"tag":"收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":12,"relatedSize":0},{"dateText":"9点30","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 09:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"09:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时个股热度排名","relatedSize":0,"tag":"[14点30分]个股热度排名"},{"opName":"and","opProperty":"","sonSize":12,"relatedSize":0},{"dateText":"14点30分","indexName":"分时换手率","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(%)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}09点30分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时换手率","sonSize":0,"queryText":"${data_text(
                 date
-            )}09点30分分时收盘价","relatedSize":0,"tag":"[9点30]收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":10,"relatedSize":0},{"dateText":"9点40","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 09:40","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"09:40"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时换手率","relatedSize":0,"tag":"[14点30分]换手率"},{"opName":"and","opProperty":"","sonSize":10,"relatedSize":0},{"dateText":"14点30分","indexName":"分时成交额","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}09点40分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时成交额","sonSize":0,"queryText":"${data_text(
                 date
-            )}09点40分分时收盘价","relatedSize":0,"tag":"[9点40]收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":8,"relatedSize":0},{"dateText":"9点50","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 09:50","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"09:50"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时成交额","relatedSize":0,"tag":"[14点30分]成交额"},{"opName":"and","opProperty":"","sonSize":8,"relatedSize":0},{"dateText":"14点30分","indexName":"分时资金流向","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}09点50分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时资金流向","sonSize":0,"queryText":"${data_text(
                 date
-            )}09点50分分时收盘价","relatedSize":0,"tag":"[9点50]收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":6,"relatedSize":0},{"dateText":"10点10","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 10:10","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"10:10"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时资金流向","relatedSize":0,"tag":"[14点30分]资金流向"},{"opName":"and","opProperty":"","sonSize":6,"relatedSize":0},{"dateText":"14点30分","indexName":"分时dde大单净额","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}10点10分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时dde大单净额","sonSize":0,"queryText":"${data_text(
                 date
-            )}10点10分分时收盘价","relatedSize":0,"tag":"[10点10]收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":4,"relatedSize":0},{"dateText":"10点30","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 10:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"10:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时dde大单净额","relatedSize":0,"tag":"[14点30分]dde大单净额"},{"opName":"and","opProperty":"","sonSize":4,"relatedSize":0},{"dateText":"14点30分","indexName":"分时涨跌幅:前复权","indexProperties":["区间偏移 [0,0]","复权方式 前复权","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30","复权方式":"前复权"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(%)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}10点30分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时涨跌幅","sonSize":0,"queryText":"${data_text(
                 date
-            )}10点30分分时收盘价","relatedSize":0,"tag":"[10点30]收盘价:不复权"},{"opName":"and","opProperty":"","sonSize":2,"relatedSize":0},{"dateText":"14点30","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时涨跌幅","relatedSize":0,"tag":"[14点30分]涨跌幅:前复权"},{"opName":"and","opProperty":"","sonSize":2,"relatedSize":0},{"dateText":"14点30分","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"${data_text(
                 date
             )}14点30分分时收盘价","sonSize":0,"queryText":"${data_text(
                 date
-            )}14点30分分时收盘价","relatedSize":0,"tag":"[14点30]收盘价:不复权"},{"dateText":"14点40","indexName":"分时收盘价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 14:40","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"index","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:40"},"reportType":"TRADE_DAILY","dateType":"交易日期","valueType":"_浮点型数值(元|港元|美元|英镑)","domain":"abs_股票领域","uiText":"${data_text(
+            )}14点30分分时收盘价","relatedSize":0,"tag":"[14点30分]收盘价:不复权"},{"dateText":"14点30分","indexName":"分时区间最低价:不复权","indexProperties":["区间偏移 [0,0]","交易时间 14:30","交易日期 ${date}"],"dateUnit":"日","source":"new_parser","type":"tech","indexPropertiesMap":{"交易日期":"${date}","区间偏移":"[0,0]","交易时间":"14:30"},"reportType":"TRADE_DAILY","dateType":"+区间","valueType":"_浮点型数值(元)","domain":"abs_股票领域","uiText":"${data_text(
                 date
-            )}14点40分分时收盘价","sonSize":0,"queryText":"${data_text(
+            )}14点30分分时区间最低价","sonSize":0,"queryText":"${data_text(
                 date
-            )}14点40分分时收盘价","relatedSize":0,"tag":"[14点40]收盘价:不复权"}]`,
+            )}14点30分分时区间最低价","relatedSize":0,"tag":"[14点30分]区间最低价:不复权"}]`,
+
             codelist: '',
             indexnamelimit: '',
             logid: '',
@@ -91,7 +119,7 @@ async function getCode(date, page = 1, limit = 100, all = []) {
             'date_range[1]': `${date}`,
             iwc_token: '',
             urp_use_sort: '1',
-            user_id: 'Ths_iwencai_Xuangu_lkyx1x8eqnomedkdsugnskooqnbta4sm',
+            user_id: '463708945',
             'uuids[0]': '24087',
             query_type: 'stock',
             comp_id: '6623802',
@@ -109,7 +137,7 @@ async function getCode(date, page = 1, limit = 100, all = []) {
     if (res.data.status_msg && res.data.status_msg === 'ok') {
         let c_data = res.data.answer.components[0].data
         // let totalPages = c_data.meta.extra.code_count ? Math.ceil(c_data.meta.extra.code_count / 100) : 0
-        let totalPages = 21
+        let totalPages = 12
         let datas = c_data.datas ? c_data.datas : []
         console.log(`[${date}]`, page, limit, all.length)
         if (totalPages === 0 && datas === []) {
