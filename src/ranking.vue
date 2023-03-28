@@ -1617,7 +1617,7 @@ const getRankData = async () => {
     })
     let THS = await axios({
         method: 'post',
-        url: 'http://search.10jqka.com.cn/customized/chart/get-robot-data',
+        url: 'https://search.10jqka.com.cn/customized/chart/get-robot-data',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
