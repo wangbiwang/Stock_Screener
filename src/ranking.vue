@@ -1753,6 +1753,7 @@ const refreshData = () => {
                 :default-sort="{ prop: '综合热度排名', order: 'ascending' }"
                 :header-cell-style="{ background: '#eee', 'font-size': '14px', color: '#333', 'text-align': 'center' }"
                 :cell-style="{ 'text-align': 'center' }"
+                style="min-width: 1830px"
             >
                 <el-table-column width="100" prop="股票代码" label="股票代码" />
                 <el-table-column width="100" prop="股票简称" label="股票简称" />
