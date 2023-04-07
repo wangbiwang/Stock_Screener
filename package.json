@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": "https://wangbiwang.github.io/Stock_Screener/",
   "scripts": {
+    "getData_THS_A": "node ./server/THS/getData_THS_A.js",
     "handleData_THS": "node ./server/THS/handleData_THS.js",
     "getData_THS": "node ./server/THS/getData_THS.js",
     "getData": "node ./server/getData.js",
